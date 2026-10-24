@@ -85,7 +85,8 @@ export async function POST(request: Request) {
       });
     }
     return Response.json({ error: "用户名或密码不正确。" }, { status: 401, headers: { "Cache-Control": "no-store" } });
-  } catch {
+  } catch (error) {
+    console.error("Owner login failed", error instanceof Error ? error.message : String(error));
     return Response.json({ error: "登录暂时不可用，请稍后再试。" }, { status: 503 });
   }
 }
